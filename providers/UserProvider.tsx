@@ -6,7 +6,7 @@ type UserProviderProps = {
   children: React.ReactNode;
 };
 
-const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+const UserProvider = ({ children }: UserProviderProps) => {
   return <MyUserContextProvider>{children}</MyUserContextProvider>;
 };
 
