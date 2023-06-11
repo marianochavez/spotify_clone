@@ -4,9 +4,12 @@ import { useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+
 import Box from "./Box";
 import SidebarItem from "./SidebarItem";
 import Library from "./Library";
+import usePlayer from "@/hooks/usePlayer";
+import { cn } from "@/lib/utils";
 import { Song } from "@/types";
 
 type SidebarProps = {
@@ -16,6 +19,7 @@ type SidebarProps = {
 
 const Sidebar = ({ songs, children }: SidebarProps) => {
   const pathname = usePathname();
+  const player = usePlayer();
 
   const routes = useMemo(
     () => [
@@ -36,7 +40,9 @@ const Sidebar = ({ songs, children }: SidebarProps) => {
   );
 
   return (
-    <div className="flex h-full">
+    <div
+      className={cn("flex h-full", player.activeId && "h-[calc(100%-80px)]")}
+    >
       <div className="hidden md:flex flex-col space-y-2 bg-black h-full w-[300px] p-2">
         <Box>
           <div className="flex flex-col space-y-2 px-5 py-4">
