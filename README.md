@@ -69,3 +69,9 @@ Running commands with npm `pnpm [command]`
 | command         | description                              |
 | :-------------- | :--------------------------------------- |
 | `dev`           | Starts a development instance of the app |
+
+## Test Stripe locally
+
+[Test Stripe locally](https://dashboard.stripe.com/test/developers)
+
+Make sure you are running the Stripe webhooks locally.

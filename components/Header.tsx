@@ -3,15 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { toast } from "react-hot-toast";
 import { HiHome } from "react-icons/hi";
 import { BiSearch } from "react-icons/bi";
+import { FaUserAlt } from "react-icons/fa";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import usePlayer from "@/hooks/usePlayer";
 import { cn } from "@/lib/utils";
+
 import Button from "./Button";
-import { FaUserAlt } from "react-icons/fa";
-import { toast } from "react-hot-toast";
 
 type HeaderProps = {
   children: React.ReactNode;
@@ -19,6 +21,7 @@ type HeaderProps = {
 };
 
 const Header = ({ children, className }: HeaderProps) => {
+  const player = usePlayer();
   const router = useRouter();
   const authModal = useAuthModal();
 
@@ -27,13 +30,11 @@ const Header = ({ children, className }: HeaderProps) => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    // TODO: Reset any playing songs
+    player.reset();
     router.refresh();
 
     if (error) {
       toast.error(error.message);
-    } else {
-      toast.success("Logged out!");
     }
   };
 
